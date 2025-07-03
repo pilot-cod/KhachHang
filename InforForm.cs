@@ -8,23 +8,17 @@ namespace KHACHHANG
     public partial class EditForm : Form
     {
         private readonly DatabaseConnect db = new DatabaseConnect();
-        private readonly string _customerID;   // khoá chính dùng khi UPDATE
+        private readonly string _customerID;   
 
-        // ──────────────────────────────────────────────────────────────────────
-        // 1.  Constructor KHÔNG tham số – chỉ để Visual Designer dùng
-        // ──────────────────────────────────────────────────────────────────────
         public EditForm() : this(null) { }
 
-        // ──────────────────────────────────────────────────────────────────────
-        // 2.  Constructor NHẬN DataRow và hiển thị dữ liệu
-        // ──────────────────────────────────────────────────────────────────────
         public EditForm(DataRow data)
         {
             InitializeComponent();
 
-            if (data == null) return;      // mở trắng (Designer)
+            if (data == null) return;     
 
-            _customerID = data["CustomerID"].ToString();   // ⬅️ LƯU ID
+            _customerID = data["CustomerID"].ToString();   
 
             txtMKH.Text = _customerID;
             txtTKH.Text = data["CustomerName"].ToString();
@@ -41,14 +35,8 @@ namespace KHACHHANG
             Cbcn.Checked = Convert.ToBoolean(data["IsPersonal"]);
         }
 
-        // ──────────────────────────────────────────────────────────────────────
-        // 3.  Nút HỦY
-        // ──────────────────────────────────────────────────────────────────────
         private void HuyButton_Click(object sender, EventArgs e) => Close();
 
-        // ──────────────────────────────────────────────────────────────────────
-        // 4.  Nút CẬP NHẬT
-        // ──────────────────────────────────────────────────────────────────────
         private void EditButton_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(_customerID))
@@ -90,12 +78,12 @@ namespace KHACHHANG
 
             try
             {
-                int rows = db.ExecuteNonQuery(sql, prm);   // overload có parameter
+                int rows = db.ExecuteNonQuery(sql, prm);   
                 if (rows > 0)
                 {
                     MessageBox.Show("Cập nhật thành công!", "Thông báo",
                                     MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    this.DialogResult = DialogResult.OK;    // báo cho form cha refresh
+                    this.DialogResult = DialogResult.OK;   
                     Close();
                 }
                 else

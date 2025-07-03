@@ -35,25 +35,24 @@ namespace KHACHHANG
 
         private void LoadData()
         {
-            string query = "SELECT * FROM DMKH"; // đổi thành bảng của bạn
+            string query = "SELECT * FROM DMKH"; 
             DataTable dt = db.ExecuteQuery(query);
             CustomerList.AutoGenerateColumns = false;
             CustomerList.DataSource = dt;
         }
 
         private void SetColumnBindings()
-        {
-            // ⚠️ Đảm bảo tên các cột trùng với tên cột trong cơ sở dữ liệu
+        {        
             txtCustomerID.DataPropertyName = "CustomerID";
             txtCustomerName.DataPropertyName = "CustomerName";
             txtTaxCode.DataPropertyName = "TaxCode";
             txtIsCustomer.DataPropertyName = "IsCustomer";
-            txtIsVendor.DataPropertyName = "IsVendor"; // sửa lại tên đúng nếu cần
+            txtIsVendor.DataPropertyName = "IsVendor";
             txtIsPersonal.DataPropertyName = "IsPersonal";
             txtMobile.DataPropertyName = "Mobile";
             txtEmail.DataPropertyName = "Email";
             txtAddress.DataPropertyName = "Address";
-            txtContactPerson.DataPropertyName = "ContactPerson"; // sửa tên đúng nếu cần
+            txtContactPerson.DataPropertyName = "ContactPerson"; 
             txtDebtLimit.DataPropertyName = "DebtLimit";
             txtNumberDayLimit.DataPropertyName = "NumberDayLimit";
         }
@@ -66,7 +65,7 @@ namespace KHACHHANG
                 && e.Value is bool)
             {
                 e.Value = ((bool)e.Value) ? "Có" : "Không";
-                e.FormattingApplied = true;            // báo đã xử lý
+                e.FormattingApplied = true;           
             }
         }
 
@@ -75,8 +74,7 @@ namespace KHACHHANG
             using (SearchForm sf = new SearchForm())
             {
                 if (sf.ShowDialog() != DialogResult.OK) return;
-
-                // --- 1. Tìm theo TÊN (txtTKH) và hiển thị trong MessageBox ---
+              
                 if (!string.IsNullOrWhiteSpace(sf.CustomerNameFilter))
                 {
                     string nameQuery = @"
@@ -110,24 +108,21 @@ namespace KHACHHANG
                             msg.AppendLine($"Số ngày nợ tối đa : {row["NumberDayLimit"]}");
                             msg.AppendLine(new string('-', 50));
                         }
-
-                        // 👉 Hiển thị bằng ResultForm (font to, dễ đọc)
                         using (ResultForm rf = new ResultForm(msg.ToString()))
                         {
-                            rf.ShowDialog();          // modal
+                            rf.ShowDialog();      
                         }
                     }
                     else
                     {
-                        // Không có kết quả
+
                         using (ResultForm rf = new ResultForm("Không tìm thấy khách hàng nào!"))
                         {
                             rf.ShowDialog();
                         }
                     }
                 }
-
-                // --- 2. Tìm theo checkbox và hiển thị kết quả trong DataGridView ---
+            
                 StringBuilder sql = new StringBuilder("SELECT * FROM DMKH WHERE 1=1");
                 List<SqlParameter> parameters = new List<SqlParameter>();
 
@@ -149,7 +144,6 @@ namespace KHACHHANG
                     parameters.Add(new SqlParameter("@isPer", SqlDbType.Bit) { Value = sf.IsPersonalFilter.Value });
                 }
 
-                // Nếu có ít nhất một checkbox được chọn → mới thực hiện truy vấn
                 if (parameters.Count > 0)
                 {
                     DataTable dt = db.ExecuteQuery(sql.ToString(), parameters.ToArray());

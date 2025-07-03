@@ -52,14 +52,11 @@ namespace KHACHHANG
 
             try
             {
-                int rowsAffected = db.ExecuteNonQuery(query, parameters); // cần thêm overload hỗ trợ parameter
+                int rowsAffected = db.ExecuteNonQuery(query, parameters);
 
                 if (rowsAffected > 0)
                 {
                     MessageBox.Show("Đã thêm khách hàng thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                    // Cập nhật lại DataGridView ở form cha (nếu có)
-                    // Có thể dùng sự kiện hoặc truy cập lại từ CustomerForm (tùy bạn tổ chức)
 
                     this.Close();
                 }

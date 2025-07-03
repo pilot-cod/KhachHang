@@ -43,8 +43,7 @@ namespace KHACHHANG
             using (EditForm ef = new EditForm(dt.Rows[0]))
             {
                 if (ef.ShowDialog() == DialogResult.OK)
-                {
-                    // Gửi tín hiệu cho form chính refresh – cách đơn giản là sự kiện hoặc delegate
+                {                  
                     this.DialogResult = DialogResult.OK;
                     this.Close();
                 }

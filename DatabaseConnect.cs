@@ -2,25 +2,21 @@
 using System.Data;
 using System.Data.SqlClient;
 
-namespace KHACHHANG // đổi theo namespace project của bạn
+namespace KHACHHANG 
 {
     public class DatabaseConnect
     {
         private readonly string connectionString;
 
         public DatabaseConnect()
-        {
-            // ⚠️ Đổi lại server và tên DB phù hợp với bạn
+        {          
             connectionString = @"Server=FX505DT;Database=CustomerList;Trusted_Connection=True;";
         }
 
-        // Hàm mở kết nối
         public SqlConnection GetConnection()
         {
             return new SqlConnection(connectionString);
         }
-
-        // Hàm SELECT: không có parameter (giữ nguyên)
         public DataTable ExecuteQuery(string query)
         {
             DataTable dt = new DataTable();
@@ -37,7 +33,6 @@ namespace KHACHHANG // đổi theo namespace project của bạn
             return dt;
         }
 
-        // ✅ Hàm SELECT: có parameter
         public DataTable ExecuteQuery(string query, SqlParameter[] parameters)
         {
             DataTable dt = new DataTable();
@@ -62,7 +57,6 @@ namespace KHACHHANG // đổi theo namespace project của bạn
             return dt;
         }
 
-        // Hàm INSERT/UPDATE/DELETE
         public int ExecuteNonQuery(string query)
         {
             int rowsAffected = 0;

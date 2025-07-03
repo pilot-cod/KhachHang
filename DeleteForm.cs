@@ -18,7 +18,7 @@ namespace KHACHHANG
         public DeleteForm()
         {
             InitializeComponent();
-            DeleteButton.Click += DeleteButton_Click; // sự kiện nút xóa
+            DeleteButton.Click += DeleteButton_Click; 
         }
 
         private void HuyButton_Click(object sender, EventArgs e)
@@ -51,7 +51,7 @@ namespace KHACHHANG
                 {
                     MessageBox.Show("Xóa thành công!", "Thông báo",
                                     MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    this.DialogResult = DialogResult.OK; // báo form cha cập nhật
+                    this.DialogResult = DialogResult.OK; 
                     this.Close();
                 }
                 else
